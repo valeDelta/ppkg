@@ -1,0 +1,41 @@
+-- creo un oggetto di tipo PSCredential che contiene username e password per un accesso
+$username = 'Utente'
+$password = 'Utente'
+
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
+
+-- cambio directory direttamente alla chiavetta
+'{0}:\' -f (Get-VOlume | ? DriveType -eq 'Removable').DriveLetter | cd
+
+-- cambio la policy per l'esecuzione di file
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+
+-- faccio partire un processo passandogli dei parametri
+Start-Process powershell.exe  -Verb RunAs -ArgumentList ('-noprofile .\update.ps1 -WindowStyle Maximized -elevated')
+
+-- elimino una task 
+Unregister-ScheduledTask -TaskName cose -Confirm $false
+Unregister-ScheduledTask -TaskName sara -Confirm $false
+
+
+--scarico un file con solo il link di download
+powershell -Command "Invoke-WebRequest 'https://download.mozilla.org/?product=firefox-stub&os=win&lang=it' -OutFile 'prova.exe'"
+:: powershell -Command "Invoke-WebRequest -Uri (Invoke-WebRequest -Uri 'https://www.mozilla.org/it/firefox/new/#:~:text=Scarica%20Firefox%20per%20Windows,%20Mac%20o%20Linux.%20Firefox%20%C3%A8%20un' -Method Get).Links | Where-Object {$_.href -like '*download*'} | Select-Object -ExpandProperty href | ForEach-Object {Invoke-WebRequest -Uri $_ -OutFile 'file.exe'}"
+
+pause
+
+
+-- modifica formati ora
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -name sShortDate -value "dd-MMM-yy"
+#Set-ItemProperty -Path "HKCUnel\International" -name sLongDate -value "dddd-MMMM-yyyy"
+#Set-ItemProperty -Path "HKCU:\ControlPanel\International" -name sShortTime -value "HH:mm"
+#Set-ItemProperty -Path "HKCU:\Control Panel\International" -name sTimeFormat -value "HH:mm:ss"
+
+--modifica lingua e regione
+#Set-SystemPreferredUILanguage it-IT
+#Set-WinSystemLocale it-IT
+Set-WinHomeLocation -GeoId 118
+#Set-WinUserLanguageList it-It -Force
+Set-WinUILanguageOverride -Language it-IT
+Set-Culture it-IT
