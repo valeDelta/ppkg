@@ -9,5 +9,5 @@ Install-Module -Name PSWindowsUpdate -force -Scope CurrentUser
 Import-Module PSWindowsUpdate
 Get-WindowsUpdate -AcceptAll -Install
 
-cd C:\
+Set-Location C:\
 Remove-Item -Path C:\temp -Recurse
