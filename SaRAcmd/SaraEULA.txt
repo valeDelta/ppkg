@@ -1,0 +1,3 @@
+﻿MICROSOFT SUPPORT AND RECOVERY ASSISTANT
+The above-named software (the "software") is governed by the terms applicable to "software" as detailed in the Microsoft Services Agreement https://www.microsoft.com/servicesagreement
+If you do not agree to these terms, do not use the software.
