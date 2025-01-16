@@ -11,3 +11,4 @@ Get-WindowsUpdate -AcceptAll -Install
 
 cd C:\
 Remove-Item -Path C:\temp -Recurse
+#sad
