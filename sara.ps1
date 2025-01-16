@@ -6,5 +6,3 @@ If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
 else{
     exit
 }
-
-#sda

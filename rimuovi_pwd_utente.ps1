@@ -17,5 +17,3 @@ Set-Culture it-IT
 '{0}:\' -f (Get-VOlume | ? DriveType -eq 'Removable').DriveLetter | cd
 Copy-Item -Path ".\applicativi\SaRAcmd" -Destination C:\temp\SaRAcmd -Recurse -Force
 Copy-Item -Path ".\update.ps1" -Destination C:\temp\update.ps1 -Recurse -Force
-
-#prova

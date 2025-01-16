@@ -12,5 +12,3 @@ $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId Utente
 # registro le attività
 #Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "continue"
 Register-ScheduledTask -Action $action1 -Trigger $trigger -Principal $task -TaskName "update"
-
-#dsa
