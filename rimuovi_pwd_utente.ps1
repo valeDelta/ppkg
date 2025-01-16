@@ -13,7 +13,21 @@ Set-WinHomeLocation -GeoId 118
 Set-WinUILanguageOverride -Language it-IT
 Set-Culture it-IT
 
+
+If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/update.ps1' -OutFile 'C:\temp\update.ps1'
+    Invoke-WebRequest 'https://github.com/valeDelta/SaRAcmd/archive/refs/heads/main.zip' -OutFile 'C:\temp\sara.zip'
+    Expand-Archive 'C:\temp\sara.zip' 'C:\temp\' -Force
+    Rename-Item 'C:\temp\SaRAcmd-main' 'C:\temp\SaRAcmd' -Force
+}
+else{
+    exit
+}
+
+
 #cambio directory nella chiavetta e copio la cartella di sara e il file di update
+<#
 '{0}:\' -f (Get-VOlume | ? DriveType -eq 'Removable').DriveLetter | cd
 Copy-Item -Path ".\applicativi\SaRAcmd" -Destination C:\temp\SaRAcmd -Recurse -Force
 Copy-Item -Path ".\update.ps1" -Destination C:\temp\update.ps1 -Recurse -Force
+#>
