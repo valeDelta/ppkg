@@ -1,8 +1,8 @@
-﻿'{0}:\' -f (Get-VOlume | ? DriveType -eq 'Removable').DriveLetter | cd
+﻿'{0}:\' -f (Get-VOlume | Where-Object DriveType -eq 'Removable').DriveLetter | Set-Location
 
 # creo le azioni da eseguire
 Set-ExecutionPolicy Unrestricted -Scope LocalMachine
-$action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "D:\prova.ps1 -WindowStyle Maximized"
+#$action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "D:\prova.ps1 -WindowStyle Maximized"
 $action1 = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "C:\temp\update.ps1 -WindowStyle Maximized"
 
 #creo il trigger e impostazioni per l'attività

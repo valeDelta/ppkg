@@ -11,3 +11,6 @@ Get-WindowsUpdate -AcceptAll -Install
 
 Set-Location C:\
 Remove-Item -Path C:\temp -Recurse
+
+Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile 'C:\Users\Public\Desktop\teleassistenza.exe'
+
