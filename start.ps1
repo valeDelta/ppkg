@@ -1,4 +1,4 @@
-﻿'{0}:\' -f (Get-VOlume | Where-Object DriveType -eq 'Removable').DriveLetter | Set-Location
+﻿#'{0}:\' -f (Get-VOlume | Where-Object DriveType -eq 'Removable').DriveLetter | Set-Location
 
 # creo le azioni da eseguire
 Set-ExecutionPolicy Unrestricted -Scope LocalMachine
