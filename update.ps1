@@ -2,6 +2,8 @@
 Set-WinUILanguageOverride -Language it-IT
 Set-Culture it-IT
 
+Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile 'C:\Users\Public\Desktop\teleassistenza.exe'
+
 Unregister-ScheduledTask -TaskName update -Confirm:$False
 
 Install-PackageProvider -Name Nuget -force -Scope CurrentUser
@@ -11,6 +13,3 @@ Get-WindowsUpdate -AcceptAll -Install
 
 Set-Location C:\
 Remove-Item -Path C:\temp -Recurse
-
-Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile 'C:\Users\Public\Desktop\teleassistenza.exe'
-

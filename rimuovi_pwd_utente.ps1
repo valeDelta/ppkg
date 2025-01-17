@@ -15,6 +15,7 @@ Set-Culture it-IT
 
 
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
+    mkdir "C:\temp\" | Set-Location 
     Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/update.ps1' -OutFile 'C:\temp\update.ps1'
     Invoke-WebRequest 'https://github.com/valeDelta/SaRAcmd/archive/refs/heads/main.zip' -OutFile 'C:\temp\sara.zip'
     Expand-Archive 'C:\temp\sara.zip' 'C:\temp\' -Force

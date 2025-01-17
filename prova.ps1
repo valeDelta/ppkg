@@ -30,7 +30,7 @@ function interno {
     Start-Process -wait -FilePath "$path\anyconnect-win-4.9.04043-core-vpn-webdeploy-k9.exe" -ArgumentList '/s'
     Start-Process -wait -FilePath "$APP\MSTeamsSetup.exe" -ArgumentList '/s' -PassThru
     Start-Process -wait -FilePath "$APP\OfficeSetup.exe" -PassThru
-    winget install "3CX" --source msstore --accept-package-agreements --scope machine
+    winget install "3CX" --source msstore --accept-package-agreements --scope machineTT
 
     Add-Computer -DomainName "local.deltainformatica.eu"
 
