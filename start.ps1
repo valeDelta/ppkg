@@ -16,4 +16,3 @@ if (Get-ChildItem -Path "C:\temp" -Filter "update.ps1") {
 else { 
     exit
 }
-

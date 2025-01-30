@@ -1,6 +1,8 @@
-﻿Set-WinHomeLocation -GeoId 118
+﻿#rimuovere le seguenti righe con la nuova versione del ppkg
+Set-WinHomeLocation -GeoId 118
 Set-WinUILanguageOverride -Language it-IT
 Set-Culture it-IT
+Set-WinUserLanguageList it-IT -force
 
 Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile 'C:\Users\Public\Desktop\teleassistenza.exe'
 

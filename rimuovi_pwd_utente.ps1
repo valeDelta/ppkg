@@ -12,7 +12,7 @@ Set-TimeZone "W. Europe Standard Time"
 Set-WinHomeLocation -GeoId 118
 Set-WinUILanguageOverride -Language it-IT
 Set-Culture it-IT
-
+Set-WinUserLanguageList it-IT -force
 
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
     mkdir "C:\temp\" | Set-Location 
