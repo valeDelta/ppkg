@@ -16,3 +16,6 @@ Set-Location C:\
 Remove-Item -Path C:\temp\sara.zip -Recurse
 Remove-Item -Path C:\temp\SaRAcmd -Recurse
 Remove-Item -Path C:\temp\update.ps1 -Recurse
+
+Write-Information "Update completato, controllare comuque windows update"
+Pause
