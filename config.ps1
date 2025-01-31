@@ -1,6 +1,9 @@
 Write-Warning "Prima di eseguire lo script controllare che il PC sia collegato ad una rete internet"
 pause
 
+#da rimuovere nella prossima versione del ppkg 1.5
+Set-TimeZone -id "W. Europe Standard Time"
+
 $PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
 
@@ -10,13 +13,15 @@ Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 
 function set-delta {
     $username = "DeltaAdmin"
-    $password = ConvertTo-SecureString Read-Host "Inserire la password per l'utente DeltaAdmin" -AsPlainText -Force 
+    $pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
+    $password = ConvertTo-SecureString $pass -AsPlainText -Force 
     New-LocalUser -Name $username -Password $password -FullName $username -AccountExpires -PasswordNeverExpires
     Add-LocalGroupMember -Group "Administrators" -Member $username
 }
 function set-saidea {
     $username = "Sadiea"
-    $password = ConvertTo-SecureString Read-Host "Inserire la password per l'utente Saidea" -AsPlainText -Force 
+    $pass = Read-Host "Inserire la password per l'utente Saidea"
+    $password = ConvertTo-SecureString $pass -AsPlainText -Force 
     New-LocalUser -Name $username -Password $password -FullName $username -AccountExpires -PasswordNeverExpires
     Add-LocalGroupMember -Group "Administrators" -Member $username
 }

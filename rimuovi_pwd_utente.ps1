@@ -8,7 +8,7 @@ New-ItemProperty -Path "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Curr
 New-ItemProperty -Path "HKLM:\HKEY_L:\Control PaOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipUserOOBE" -Value 1 -PropertyType DWORD -Force 
 
 #configuro la regione oraria e lingua 
-Set-TimeZone "W. Europe Standard Time"
+Set-TimeZone -id "W. Europe Standard Time"
 Set-WinHomeLocation -GeoId 118
 Set-WinUILanguageOverride -Language it-IT
 Set-Culture it-IT
