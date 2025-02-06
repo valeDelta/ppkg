@@ -1,8 +1,8 @@
-# Windows Configuration Scripts
+# Windows Configuration Scripts V1.5
 
 ## Description
 
-This repository contains a collection of PowerShell scripts designed to configure and automate various tasks on Windows systems.
+Scripts to implement in a windows configuration designer pakage to automate a plain configuration of windows.
 
 ## Scripts
 
@@ -12,7 +12,7 @@ Removes the password for the local user "Utente" and configures regional setting
 
 ### sara.ps1
 
-Not provided in the code snippets, but presumably this script is related to the SaRAcmd tool and is used to configure or install it.
+run the SaRAcmd tool to clear all preintalled office versions
 
 ### start.ps1
 
