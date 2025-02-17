@@ -5,6 +5,8 @@ pause
 Set-WinUserLanguageList it-IT -force
 Set-WinHomeLocation -GeoId 118
 Set-Culture it-IT
+Set-TimeZone -id "W. Europe Standard Time"
+
 
 $PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
