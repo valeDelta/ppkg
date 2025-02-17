@@ -9,10 +9,7 @@ New-ItemProperty -Path "HKLM:\HKEY_L:\Control PaOCAL_MACHINE\SOFTWARE\Microsoft\
 
 #configuro la regione oraria e lingua 
 Set-TimeZone -id "W. Europe Standard Time"
-Set-WinHomeLocation -GeoId 118
 Set-WinUILanguageOverride -Language it-IT
-Set-Culture it-IT
-Set-WinUserLanguageList it-IT -force
 
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
     mkdir "C:\temp\" | Set-Location 

@@ -3,6 +3,9 @@ pause
 
 #da rimuovere nella prossima versione del ppkg 1.5
 Set-TimeZone -id "W. Europe Standard Time"
+Set-WinUserLanguageList it-IT -force
+Set-WinHomeLocation -GeoId 118
+Set-Culture it-IT
 
 $PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
@@ -33,6 +36,10 @@ che utente locale vuoi creare?:
 3: lasciare utente locale
 "
 
+Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
+
+Remove-Item -Path C:\temp\config.ps1 -Recurse
+
  Switch ($client)
 {
     "1"  { 
@@ -45,8 +52,3 @@ che utente locale vuoi creare?:
         exit
      }
 }
-
-
-Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
-
-Remove-Item -Path C:\temp\config.ps1 -Recurse
