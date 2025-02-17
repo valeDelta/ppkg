@@ -3,7 +3,7 @@
 Install-PackageProvider -Name Nuget -force -Scope CurrentUser
 Install-Module -Name PSWindowsUpdate -force -Scope CurrentUser
 Import-Module PSWindowsUpdate
-Get-WindowsUpdate -AcceptAll -Install
+Get-WindowsUpdate -Install -AcceptAll
 
 Set-Location C:\
 Remove-Item -Path C:\temp\sara.zip -Recurse
