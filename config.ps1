@@ -1,11 +1,11 @@
 Write-Warning "Prima di eseguire lo script controllare che il PC sia collegato ad una rete internet"
 pause
 
-#da rimuovere nella prossima versione del ppkg 1.5
 Set-WinUserLanguageList it-IT -force
 Set-WinHomeLocation -GeoId 118
 Set-Culture it-IT
 Set-TimeZone -id "W. Europe Standard Time"
+Set-WinUILanguageOverride -Language it-IT
 
 
 $PD = "C:\Users\Public\Desktop"
