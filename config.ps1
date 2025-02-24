@@ -1,13 +1,6 @@
 Write-Warning "Prima di eseguire lo script controllare che il PC sia collegato ad una rete internet"
 pause
 
-Set-WinUserLanguageList it-IT -force
-Set-WinHomeLocation -GeoId 118
-Set-Culture it-IT
-Set-TimeZone -name "W. Europe Standard Time"
-Set-WinUILanguageOverride -Language it-IT
-
-
 $PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
 
