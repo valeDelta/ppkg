@@ -28,7 +28,8 @@ function set-delta {
 function set-saidea {
     $username = "Saidea"
     $pass = Read-Host "Inserire la password per l'utente Saidea"
-    $password = ConvertTo-SecureString $pass -AsPlainText -Force 
+    if($pass -eq $null) { $password = ([securestring]::new()) }
+    else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
     New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
     Add-LocalGroupMember -Group "Administrators" -Member $username
     remove($username)
@@ -40,8 +41,9 @@ che utente locale vuoi creare?:
 2: saidea
 3: lasciare utente locale
 "
-
-Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
+if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
+    Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
+}
 
 Remove-Item -Path C:\temp\config.ps1 -Recurse
 
