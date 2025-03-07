@@ -5,7 +5,13 @@ $PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
 
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
-
+$trigger = New-ScheduledTaskTrigger -User -AtLogOn
+$action = New-ScheduledTask -Execute 'Powershell.exe' -Argument "Set-WinUserLanguageList it-IT -force
+Set-WinHomeLocation -GeoId 118
+Set-Culture it-IT
+Set-TimeZone -id 'W. Europe Standard Time'
+Set-WinUILanguageOverride -Language it-IT"
+Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "sync"
 
 function remove {
     param (
@@ -26,6 +32,7 @@ function set-delta {
     remove($username)   
 }
 function set-saidea {
+    Set-Location C:\Windows\System32
     $username = "Saidea"
     $pass = Read-Host "Inserire la password per l'utente Saidea"
     if($pass -eq $null) { $password = ([securestring]::new()) }

@@ -3,7 +3,7 @@
 Set-WinUserLanguageList it-IT -force
 Set-WinHomeLocation -GeoId 118
 Set-Culture it-IT
-Set-TimeZone -name "W. Europe Standard Time"
+Set-TimeZone -id "W. Europe Standard Time"
 Set-WinUILanguageOverride -Language it-IT
 
 
