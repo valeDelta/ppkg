@@ -1,4 +1,4 @@
-# Windows Configuration Scripts V1.5
+# Windows Configuration Scripts V1.6
 
 ## Description
 
