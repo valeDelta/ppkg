@@ -39,7 +39,7 @@ function set-saidea {
     else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
     New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
     Add-LocalGroupMember -Group "Administrators" -Member $username
-    remove($username)
+    remove($"Utente")
 }
 
 $client = Read-Host "
@@ -61,6 +61,7 @@ Remove-Item -Path C:\temp\config.ps1 -Recurse
      }
     "2"{ 
        set-saidea
+       pause
      }
      "3"{
         exit
