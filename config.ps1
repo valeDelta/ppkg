@@ -13,6 +13,12 @@ Set-TimeZone -id 'W. Europe Standard Time'
 Set-WinUILanguageOverride -Language it-IT"
 Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "sync"
 
+$GeoID = 118  # 118 è l'ID per l'Italia
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\International\Geo" -Name "Nation" -Value $GeoID
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\Language" -Name "Default" -Value "0410"  # 0410 = Italiano
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\Language" -Name "InstallLanguage" -Value "0410"
+
+
 function remove {
     param (
         $username
@@ -39,7 +45,8 @@ function set-saidea {
     else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
     New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
     Add-LocalGroupMember -Group "Administrators" -Member $username
-    remove($"Utente")
+    #remove($"Utente")
+    Pause
 }
 
 $client = Read-Host "
