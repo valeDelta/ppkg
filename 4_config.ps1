@@ -41,7 +41,7 @@ function set-saidea {
     Set-Location C:\Windows\System32
     $username = "Saidea"
     $pass = Read-Host "Inserire la password per l'utente Saidea"
-    if($pass -eq $null) { $password = ([securestring]::new()) }
+    if($null -eq $pass) { $password = ([securestring]::new()) }
     else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
     New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
     Add-LocalGroupMember -Group "Administrators" -Member $username
