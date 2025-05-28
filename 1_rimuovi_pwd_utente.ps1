@@ -18,6 +18,8 @@ If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
         $LangList.Remove($MarkedLang)
         Set-WinUserLanguageList $LangList -Force
     }
+
+    mkdir "C:\temp\"
     
 }
 else{
