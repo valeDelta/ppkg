@@ -1,5 +1,5 @@
 # Write-Warning "Prima di eseguire lo script controllare che il PC sia collegato ad una rete internet"
-pause
+#pause
 
 # $PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
@@ -8,6 +8,10 @@ Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 
 #non funziona se non sul desktop
 Set-WinHomeLocation -GeoId 118
+
+#sync time
+net start w32time
+w32tm /resync
 
 
 # function remove {
