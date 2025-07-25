@@ -7,7 +7,17 @@
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 
 #non funziona se non sul desktop
-Set-WinHomeLocation -GeoId 118
+#Set-WinHomeLocation -GeoId 118
+
+# Imposta GeoID (Nazione) su 118 = Italia
+
+Write-Host "Imposto GeoID per nuovo profilo utente (HKU\.DEFAULT)..."
+Set-ItemProperty -Path "HKU\.DEFAULT\Control Panel\International\Geo" -Name Nation -Value 118
+
+Write-Host "Imposto GeoID per utente corrente (HKCU)..."
+Set-ItemProperty -Path "HKCU:\Control Panel\International\Geo" -Name Nation -Value 118
+
+Write-Host "Fatto. Riavvia il sistema se vuoi assicurarti che tutto venga preso."
 
 #sync time
 net start w32time
@@ -18,11 +28,15 @@ w32tm /resync
 #     param (
 #         $username
 #     )
-#     $action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "Unregister-ScheduledTask -TaskName 'remove' -Confirm:$False
-#     remove-localuser -Name '$username' -confirm:$false"
+#     $action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "Unregister-ScheduledTask -TaskName 'remove' -Confirm:$False"
+#     $action1 = new-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "remove-localuser -Name '$username' -confirm:$false"
 #     $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$username"
-#     $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId $username
+#     $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId "$username"
 #     Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "remove"
+#     Register-ScheduledTask -Action $action1 -Trigger $trigger -Principal $task -TaskName "remove1"
+
+
+
 # }
 # function set-delta {
 #     $username = "DeltaAdmin"
@@ -32,17 +46,17 @@ w32tm /resync
 #     Add-LocalGroupMember -Group "Administrators" -Member $username
 #     remove($username)   
 # }
-# function set-saidea {
-#     Set-Location C:\Windows\System32
-#     $username = "Saidea"
-#     $pass = Read-Host "Inserire la password per l'utente Saidea"
-#     if($null -eq $pass) { $password = ([securestring]::new()) }
-#     else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
-#     New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
-#     Add-LocalGroupMember -Group "Administrators" -Member $username
-#     #remove($"Utente")
-#     Pause
-# }
+
+# Set-Location C:\Windows\System32
+# $username = "Saidea"
+# $pass = Read-Host "Inserire la password per l'utente Saidea"
+# if($null -eq $pass) { $password = ([securestring]::new()) }
+# else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
+# New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
+# Add-LocalGroupMember -Group "Administrators" -Member $username
+# remove("Utente")
+# Pause
+
 
 # $client = Read-Host "
 # che utente locale vuoi creare?:

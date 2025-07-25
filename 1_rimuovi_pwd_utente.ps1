@@ -19,7 +19,6 @@ If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
         Set-WinUserLanguageList $LangList -Force
     }
 
-    mkdir "C:\temp\"
     
 }
 else{
