@@ -7,21 +7,29 @@
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 
 #non funziona se non sul desktop
-#Set-WinHomeLocation -GeoId 118
-
-# Imposta GeoID (Nazione) su 118 = Italia
-
-Write-Host "Imposto GeoID per nuovo profilo utente (HKU\.DEFAULT)..."
-Set-ItemProperty -Path "HKU\.DEFAULT\Control Panel\International\Geo" -Name Nation -Value 118
-
-Write-Host "Imposto GeoID per utente corrente (HKCU)..."
-Set-ItemProperty -Path "HKCU:\Control Panel\International\Geo" -Name Nation -Value 118
-
-Write-Host "Fatto. Riavvia il sistema se vuoi assicurarti che tutto venga preso."
+Set-WinHomeLocation -GeoId 118
+pause
 
 #sync time
 net start w32time
 w32tm /resync
+
+$source = "$env:USERPROFILE\AppData\Local\Microsoft\Windows\Shell"
+$destination = "C:\Users\Default\AppData\Local\Microsoft\Windows\Shell"
+
+# Crea la cartella se non esiste
+if (!(Test-Path $destination)) {
+    New-Item -ItemType Directory -Path $destination -Force
+}
+
+# Copia i file che definiscono lingua e regione
+Copy-Item -Path "$source\intl.json" -Destination $destination -Force
+Copy-Item -Path "$source\LanguageSettings.json" -Destination $destination -Force
+
+Write-Host "Impostazioni internazionali copiate nel profilo Default. I nuovi utenti erediteranno la regione."
+pause
+
+
 
 
 # function remove {
