@@ -6,6 +6,8 @@
 
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 
+Set-LocalUser -Name "Utente" -PasswordNeverExpires $true
+
 #non funziona se non sul desktop
 Set-WinHomeLocation -GeoId 118
 pause
@@ -14,22 +16,22 @@ pause
 net start w32time
 w32tm /resync
 
-$source = "$env:USERPROFILE\AppData\Local\Microsoft\Windows\Shell"
-$destination = "C:\Users\Default\AppData\Local\Microsoft\Windows\Shell"
+Get-AppxPackage -AllUsers "MSTeams" | Remove-AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | -AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.Copilot" | Remove-AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.XboxGamingOverlay" | Remove-AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" | Remove-AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -AllUsers
+Get-AppxPackage -AllUsers "Microsoft.XboxGameCallableUI" | Remove-AppxPackage -AllUsers
+Get-AppPackage -AllUsers "Microsoft.GamingApp" | Remove-AppPackage -AllUsers
+Get-AppPackage -AllUsers "Microsoft.OutlookForWindows" | Remove-AppPackage -AllUsers
 
-# Crea la cartella se non esiste
-if (!(Test-Path $destination)) {
-    New-Item -ItemType Directory -Path $destination -Force
+
+if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
+    Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
+    Set-Location "C:\temp\"
 }
-
-# Copia i file che definiscono lingua e regione
-Copy-Item -Path "$source\intl.json" -Destination $destination -Force
-Copy-Item -Path "$source\LanguageSettings.json" -Destination $destination -Force
-
-Write-Host "Impostazioni internazionali copiate nel profilo Default. I nuovi utenti erediteranno la regione."
-pause
-
-
 
 
 # function remove {
