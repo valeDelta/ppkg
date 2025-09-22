@@ -1,7 +1,7 @@
 # Write-Warning "Prima di eseguire lo script controllare che il PC sia collegato ad una rete internet"
 #pause
 
-# $PD = "C:\Users\Public\Desktop"
+$PD = "C:\Users\Public\Desktop"
 # $APP = "D:\applicativi\generali"
 
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
@@ -10,7 +10,6 @@ Set-LocalUser -Name "Utente" -PasswordNeverExpires $true
 
 #non funziona se non sul desktop
 Set-WinHomeLocation -GeoId 118
-pause
 
 #sync time
 net start w32time
@@ -44,52 +43,65 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
 #     $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId "$username"
 #     Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "remove"
 #     Register-ScheduledTask -Action $action1 -Trigger $trigger -Principal $task -TaskName "remove1"
-
-
-
-# }
-# function set-delta {
-#     $username = "DeltaAdmin"
-#     $pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
-#     $password = ConvertTo-SecureString $pass -AsPlainText -Force 
-#     New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
-#     Add-LocalGroupMember -Group "Administrators" -Member $username
-#     remove($username)   
 # }
 
-# Set-Location C:\Windows\System32
-# $username = "Saidea"
-# $pass = Read-Host "Inserire la password per l'utente Saidea"
-# if($null -eq $pass) { $password = ([securestring]::new()) }
-# else {$password = ConvertTo-SecureString $pass -AsPlainText -Force }
-# New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
-# Add-LocalGroupMember -Group "Administrators" -Member $username
-# remove("Utente")
-# Pause
+function set-saidea {
+    $username = "Saidea"
+    $pass = Read-Host "Inserire la password per l'utente Saidea"
+    if ($pass -eq "") { 
+        New-LocalUser -Name $username -FullName $username -AccountNeverExpires -NoPassword
+        $adsi = [ADSI]"WinNT://$env:COMPUTERNAME/$username,user"
+        $adsi.Put("PasswordExpired", 0)
+        $adsi.SetInfo()
+        Set-LocalUser -Name $username -PasswordNeverExpires $TRUE
+    }
+    else {
+        $password = ConvertTo-SecureString $pass -AsPlainText -Force 
+        New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
+    }
+    Add-LocalGroupMember -Group "Administrators" -Member $username
+    Write-Warning "ricordarsi di cancellare l'utente 'Utente' "
+    Pause
+}
+
+function set-delta {
+    $username = "DeltaAdmin"
+    $pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
+    if ($pass -eq "") { 
+        New-LocalUser -Name $username -FullName $username -AccountNeverExpires -NoPassword
+        $adsi = [ADSI]"WinNT://$env:COMPUTERNAME/$username,user"
+        $adsi.Put("PasswordExpired", 0)
+        $adsi.SetInfo()
+        Set-LocalUser -Name $username -PasswordNeverExpires $TRUE
+    }
+    else {
+        $password = ConvertTo-SecureString $pass -AsPlainText -Force 
+        New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
+    }
+    Add-LocalGroupMember -Group "Administrators" -Member $username
+    Write-Warning "ricordarsi di cancellare l'utente 'Utente' "
+    Pause
+}
 
 
-# $client = Read-Host "
-# che utente locale vuoi creare?:
-# 1: delta
-# 2: saidea
-# 3: lasciare utente locale
-# "
-# if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
-#     Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
-# }
+$client = Read-Host "
+che utente locale vuoi creare?:
+1: saidea
+2: delta
+3: lasciare utente locale
+"
 
 # Remove-Item -Path C:\temp\config.ps1 -Recurse
 
-#  Switch ($client)
-# {
-#     "1"  { 
-#         set-delta
-#      }
-#     "2"{ 
-#        set-saidea
-#        pause
-#      }
-#      "3"{
-#         exit
-#      }
-# }
+Switch ($client) {
+    "1" { 
+        set-saidea
+    }
+    "2" { 
+        set-delta
+       
+    }
+    "3" {
+        exit
+    }
+}
