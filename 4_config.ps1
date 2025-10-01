@@ -9,7 +9,12 @@ Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 Set-LocalUser -Name "Utente" -PasswordNeverExpires $true
 
 #non funziona se non sul desktop
-Set-WinHomeLocation -GeoId 118
+$region = "it-IT"
+Set-Culture $region
+Set-WinSystemLocale $region
+Set-WinUserLanguageList $region, "it-IT" -force -wa silentlycontinue
+Set-WinHomeLocation 109
+Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
 
 #sync time
 net start w32time
