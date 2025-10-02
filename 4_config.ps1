@@ -13,7 +13,7 @@ $region = "it-IT"
 Set-Culture $region
 Set-WinSystemLocale $region
 Set-WinUserLanguageList $region, "it-IT" -force -wa silentlycontinue
-Set-WinHomeLocation 109
+Set-WinHomeLocation 118
 Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
 
 #sync time
