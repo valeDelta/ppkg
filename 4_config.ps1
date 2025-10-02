@@ -110,3 +110,5 @@ Switch ($client) {
         exit
     }
 }
+
+logoff.exe
