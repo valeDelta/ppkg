@@ -2,11 +2,10 @@
 #pause
 
 $PD = "C:\Users\Public\Desktop"
-# $APP = "D:\applicativi\generali"
 
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 
-Set-LocalUser -Name "Utente" -PasswordNeverExpires $true
+Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $true
 
 #non funziona se non sul desktop
 $region = "it-IT"
@@ -37,78 +36,11 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
     Set-Location "C:\temp\"
 }
 
-
-# function remove {
-#     param (
-#         $username
-#     )
-#     $action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "Unregister-ScheduledTask -TaskName 'remove' -Confirm:$False"
-#     $action1 = new-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "remove-localuser -Name '$username' -confirm:$false"
-#     $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$username"
-#     $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId "$username"
-#     Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "remove"
-#     Register-ScheduledTask -Action $action1 -Trigger $trigger -Principal $task -TaskName "remove1"
-# }
-
-function set-saidea {
-    $username = "Saidea"
-    $pass = Read-Host "Inserire la password per l'utente Saidea"
-    if ($pass -eq "") { 
-        New-LocalUser -Name $username -FullName $username -AccountNeverExpires -NoPassword
-        $adsi = [ADSI]"WinNT://$env:COMPUTERNAME/$username,user"
-        $adsi.Put("PasswordExpired", 0)
-        $adsi.SetInfo()
-        Set-LocalUser -Name $username -PasswordNeverExpires $TRUE
-    }
-    else {
-        $password = ConvertTo-SecureString $pass -AsPlainText -Force 
-        New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
-    }
-    Add-LocalGroupMember -Group "Administrators" -Member $username
-    Write-Warning "ricordarsi di cancellare l'utente 'Utente' "
-    Pause
+$pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
+if ($pass -eq "") { 
+    Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $TRUE
 }
-
-function set-delta {
-    $username = "DeltaAdmin"
-    $pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
-    if ($pass -eq "") { 
-        New-LocalUser -Name $username -FullName $username -AccountNeverExpires -NoPassword
-        $adsi = [ADSI]"WinNT://$env:COMPUTERNAME/$username,user"
-        $adsi.Put("PasswordExpired", 0)
-        $adsi.SetInfo()
-        Set-LocalUser -Name $username -PasswordNeverExpires $TRUE
-    }
-    else {
-        $password = ConvertTo-SecureString $pass -AsPlainText -Force 
-        New-LocalUser -Name $username -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
-    }
-    Add-LocalGroupMember -Group "Administrators" -Member $username
-    Write-Warning "ricordarsi di cancellare l'utente 'Utente' "
-    Pause
+else {
+    $password = ConvertTo-SecureString $pass -AsPlainText -Force 
+    New-LocalUser -Name "DeltaAdmin" -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires
 }
-
-
-$client = Read-Host "
-che utente locale vuoi creare?:
-1: saidea
-2: delta
-3: lasciare utente locale
-"
-
-# Remove-Item -Path C:\temp\config.ps1 -Recurse
-
-Switch ($client) {
-    "1" { 
-        set-saidea
-    }
-    "2" { 
-        set-delta
-       
-    }
-    "3" {
-        exit
-    }
-}
-
-logoff.exe
