@@ -8,12 +8,14 @@ Unregister-ScheduledTask -TaskName "continue" -Confirm:$False
 Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $true
 
 #non funziona se non sul desktop
+Set-TimeZone -id "W. Europe Standard Time"
 $region = "it-IT"
 Set-Culture $region
 Set-WinSystemLocale $region
 Set-WinUserLanguageList $region, "it-IT" -force -wa silentlycontinue
 Set-WinHomeLocation 118
 Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
+
 
 #sync time
 net start w32time
