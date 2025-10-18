@@ -56,3 +56,5 @@ else {
     $password = ConvertTo-SecureString $pass -AsPlainText -Force 
     Set-LocalUser -Name "DeltaAdmin" -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires $True
 }
+
+pause
