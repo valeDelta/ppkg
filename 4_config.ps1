@@ -21,6 +21,8 @@ Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
 net start w32time
 w32tm /resync
 
+
+# disinstalla applicazioni inutili?
 Get-AppxPackage -AllUsers "MSTeams" | Remove-AppxPackage -AllUsers
 Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | -AppxPackage -AllUsers
 Get-AppxPackage -AllUsers "Microsoft.Copilot" | Remove-AppxPackage -AllUsers
@@ -31,6 +33,14 @@ Get-AppxPackage -AllUsers "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -A
 Get-AppxPackage -AllUsers "Microsoft.XboxGameCallableUI" | Remove-AppxPackage -AllUsers
 Get-AppPackage -AllUsers "Microsoft.GamingApp" | Remove-AppPackage -AllUsers
 Get-AppPackage -AllUsers "Microsoft.OutlookForWindows" | Remove-AppPackage -AllUsers
+
+
+# if (Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" ){
+#     echo "il pacchetto c'è"
+# }
+# else {
+#     echo "il pacchetto non c'è"
+# }
 
 
 if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
