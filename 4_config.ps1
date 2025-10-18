@@ -45,7 +45,6 @@ Get-AppPackage -AllUsers "Microsoft.OutlookForWindows" | Remove-AppPackage -AllU
 # scarico la teleassistenza
 if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
     Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
-    Set-Location "C:\temp\"
 }
 
 # inserimento password all'account admin locale

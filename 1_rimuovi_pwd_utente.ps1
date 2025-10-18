@@ -8,9 +8,9 @@ New-ItemProperty -Path "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Curr
 New-ItemProperty -Path "HKLM:\HKEY_L:\Control PaOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipUserOOBE" -Value 1 -PropertyType DWORD -Force 
 
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
-    mkdir "C:\temp\" | Set-Location 
+    mkdir "C:\management\" | Set-Location 
     #Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/update.ps1' -OutFile 'C:\temp\update.ps1'
-    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/4_config.ps1' -OutFile 'C:\temp\config.ps1'
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/4_config.ps1' -OutFile 'C:\management\config.ps1'
     
     $LangList = Get-WinUserLanguageList
     if ($LangList.languagetag -ccontains "nl-NL") {
