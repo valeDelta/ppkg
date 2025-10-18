@@ -34,7 +34,7 @@ Get-AppxPackage -AllUsers "Microsoft.XboxGameCallableUI" | Remove-AppxPackage -A
 Get-AppPackage -AllUsers "Microsoft.GamingApp" | Remove-AppPackage -AllUsers
 Get-AppPackage -AllUsers "Microsoft.OutlookForWindows" | Remove-AppPackage -AllUsers
 
-
+# test controllo esistenza pacchetti
 # if (Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" ){
 #     echo "il pacchetto c'è"
 # }
@@ -42,12 +42,13 @@ Get-AppPackage -AllUsers "Microsoft.OutlookForWindows" | Remove-AppPackage -AllU
 #     echo "il pacchetto non c'è"
 # }
 
-
+# scarico la teleassistenza
 if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
     Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
     Set-Location "C:\temp\"
 }
 
+# inserimento password all'account admin locale
 $pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
 if ($pass -eq "") { 
     Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $TRUE
