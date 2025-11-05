@@ -59,7 +59,7 @@ else {
 
 # installazione programmi basilari
 #winget install Google.Chrome
-winget install 7zip.7zip
+# winget install 7zip.7zip
 
 # disabilito fastboot
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0
