@@ -1,4 +1,7 @@
-﻿Write-Host "Avvio script di aggiornamento Windows..." -ForegroundColor Cyan
+﻿
+Unregister-ScheduledTask -TaskName "update" -Confirm:$False
+
+Write-Host "Avvio script di aggiornamento Windows..." -ForegroundColor Cyan
 
 # Lasciamo i messaggi di progresso attivi per debug
 $ProgressPreference = 'Continue'
