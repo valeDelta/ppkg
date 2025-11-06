@@ -1,43 +1,57 @@
-# Windows Configuration Scripts V1.6
+// ...existing code...
+{
+# Windows Configuration Scripts (ppkg) — v2.8
 
-## Description
+Automated collection of PowerShell and batch scripts used to prepare and configure Windows images / machines for deployment by ppkg file. The repository contains small utilities to remove default apps, configure regional/locale settings, create scheduled tasks to continue configuration at first logon, and apply Windows updates.
 
-Scripts to implement in a windows configuration designer pakage to automate a plain configuration of windows.
+## Contents
 
-## Scripts
+- [1_rimuovi_pwd_utente.ps1](1_rimuovi_pwd_utente.ps1) — remove/reset local admin password, set OOBE/privacy registry keys, download `update.ps1` and `4_config.ps1`.
+- [2_sara.ps1](2_sara.ps1) — download and run SaRAcmd Office scrub tool to remove preinstalled Office.
+- [3_start.ps1](3_start.ps1) — register scheduled tasks to run downloaded config/update scripts at user logon.
+- [4_config.ps1](4_config.ps1) — main configuration executed at first logon: timezone, culture, time sync, local admin password prompt, disable fastboot, run app removal batch.
+- [update.ps1](update.ps1) — Windows update helper using PSWindowsUpdate.
+- [test.bat](test.bat) — batch script to remove built-in apps, disable Copilot/MeetNow, tweak registry and services.
 
-### rimuovi_pwd_utente.ps1
 
-Removes the password for the local user "Utente", set the privacy consent status, remove unwanted languages.
+Full workspace tree:
+- [.gitignore](.gitignore)
+- [1_rimuovi_pwd_utente.ps1](1_rimuovi_pwd_utente.ps1)
+- [2_sara.ps1](2_sara.ps1)
+- [3_start.ps1](3_start.ps1)
+- [4_config.ps1](4_config.ps1)
+- [README.md](README.md)
+- [update.ps1](update.ps1)
 
-### sara.ps1
+## Requirements & Preflight
 
-run the SaRAcmd tool to clear all preintalled office versions
+- Run as Administrator for actions that modify users, scheduled tasks, services, or registry.
+- PowerShell 5.1+ (or PowerShell Core where supported) and access to the internet for downloads.
+- Winget is referenced in comments but not required for current scripts.
 
-### start.ps1
+## Recommended Usage (order)
 
-Configures the system to run the `4_config.ps1` script at logon and sets the execution policy to unrestricted.
-In future updates the script will also run the `update.ps1` script at logon to update automatically windows.
+1. Review scripts and test in a VM.
+2. Run (as admin) [1_rimuovi_pwd_utente.ps1](1_rimuovi_pwd_utente.ps1) to prepare local admin and download management scripts.
+3. Run (as admin) [2_sara.ps1](2_sara.ps1) if Office removal is needed.
+4. Run (as admin) [3_start.ps1](3_start.ps1) to register scheduled tasks that will run [4_config.ps1](4_config.ps1) and [update.ps1](update.ps1) at next logon.
+5. On first interactive logon, the scheduled task runs [4_config.ps1](4_config.ps1) to finalize configuration.
 
-### update.ps1
 
-not implemented at the moment
-Updates the system by installing the PSWindowsUpdate module, importing it, and applying available Windows updates.
-Future updates will also run the winget tool to update software.
+## Notes & Safety
 
-### 4_config.ps1
+- These scripts make system-wide changes (users, registry, scheduled tasks, installed packages). Test in a controlled environment before production use.
+- Password handling: scripts prompt for admin password in [4_config.ps1](4_config.ps1); ensure secure handling in automation.
+- Many operations assume a default local admin named "DeltaAdmin" — adapt to your naming and policies.
+- The repository includes an aggressive app-removal batch ([test.bat](test.bat)) — review before executing.
 
-Sets the region and timezone.
-In future updates will run the semi automatic configuration of the system, by installing softwares, creating local admin, adding the PC to domains and so on.
+## Where to look for behavior
 
-## Usage
+- OOBE / privacy registry changes: see [1_rimuovi_pwd_utente.ps1](1_rimuovi_pwd_utente.ps1).
+- Scheduled task creation: see [3_start.ps1](3_start.ps1).
+- Final configuration actions (timezone, culture, time sync): see [4_config.ps1](4_config.ps1).
+- Windows update automation: see [update.ps1](update.ps1).
+- App removal and registry tweaks: see [test.bat](test.bat).
+- Useful snippets and commands: [documentazione/comandi utili.txt.txt](documentazione/comandi utili.txt.txt).
 
-1. Clone the repository to a local directory.
-2. Run the `1_rimuovi_pwd_utente.ps1` script to remove the password for the local user "Utente" and configure regional settings.
-3. Run the `2_sara.ps1` script to clear all preintalled office versions.
-4. Run the `3_start.ps1` script to configure the system to run the `4_config.ps1` script at logon.
-
-## Notes
-
-* These scripts are designed to be run in a specific order, first with `1_rimuovi_pwd_utente.ps1` and then `2_sara.ps1`, `3_start.ps1`, the others will run at logon.
-* Be cautious when running these scripts, as they make significant changes to the system configuration.
+}
