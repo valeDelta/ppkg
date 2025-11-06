@@ -22,26 +22,6 @@ net start w32time
 w32tm /resync
 
 
-# disinstalla applicazioni inutili?
-Get-AppxPackage -AllUsers "MSTeams" | Remove-AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | -AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.Copilot" | Remove-AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.XboxGamingOverlay" | Remove-AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" | Remove-AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -AllUsers
-Get-AppxPackage -AllUsers "Microsoft.XboxGameCallableUI" | Remove-AppxPackage -AllUsers
-Get-AppPackage -AllUsers "Microsoft.GamingApp" | Remove-AppPackage -AllUsers
-Get-AppPackage -AllUsers "Microsoft.OutlookForWindows" | Remove-AppPackage -AllUsers
-
-# test controllo esistenza pacchetti
-# if (Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" ){
-#     echo "il pacchetto c'è"
-# }
-# else {
-#     echo "il pacchetto non c'è"
-# }
-
 # scarico la teleassistenza
 if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
     Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
@@ -63,5 +43,11 @@ else {
 
 # disabilito fastboot
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0
+
+# scarico e eseguo bat per rimozione applicazioni di default
+if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/test.bat' -OutFile "c:\management\rimozione.bat"
+    Start-Process -FilePath 'C:\management\rimozione.bat' -Verb RunAs
+}
 
 pause
