@@ -34,7 +34,7 @@ if ($pass -eq "") {
 }
 else {
     $password = ConvertTo-SecureString $pass -AsPlainText -Force 
-    Set-LocalUser -Name "DeltaAdmin" -Password $password -FullName $username -AccountNeverExpires -PasswordNeverExpires $True
+    Set-LocalUser -Name "DeltaAdmin" -Password $password -FullName "DeltaAdmin" -AccountNeverExpires -PasswordNeverExpires $True
 }
 
 # installazione programmi basilari
