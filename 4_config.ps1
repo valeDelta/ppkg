@@ -25,6 +25,7 @@ w32tm /resync
 # scarico la teleassistenza
 if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") { 
     Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "$PD\teleassistenza.exe"
+    Invoke-WebRequest 'https://github.com/valeDelta/ppkg/raw/refs/heads/main/netscan.exe' -OutFile "C:\management\netscan.exe"
 }
 
 # inserimento password all'account admin locale
