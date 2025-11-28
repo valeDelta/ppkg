@@ -37,6 +37,15 @@ else {
     Set-LocalUser -Name "DeltaAdmin" -Password $password -FullName "DeltaAdmin" -AccountNeverExpires -PasswordNeverExpires $True
 }
 
+$q = Read-Host "si vuole installare total commander? (y/n)"
+if ($q -eq "y") { 
+    Invoke-WebRequest 'https://totalcommander.ch/1156/newcert/tcmd1156x64.exe' -OutFile "c:\management\totalcmd.exe"
+    Start-Process -FilePath 'C:\management\totalcmd.exe' -ArgumentList '/S'
+}
+elseif ($q -eq "n") {
+    continue
+}
+
 # installazione programmi basilari
 #winget install Google.Chrome
 winget install 7zip.7zip
