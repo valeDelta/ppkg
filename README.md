@@ -1,4 +1,4 @@
-# Windows Configuration Scripts (ppkg) — v2.8
+# Windows Configuration Scripts (ppkg) — v2.8.3
 
 Automated collection of PowerShell and batch scripts used to prepare and configure Windows images / machines for deployment by ppkg file. The repository contains small utilities to remove default apps, configure regional/locale settings, create scheduled tasks to continue configuration at first logon, and apply Windows updates.
 
