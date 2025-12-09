@@ -22,7 +22,7 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
 
 ## Quick Start
 
-Run as Administrator in order:
+Run as Administrator on oobe in order:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force
@@ -92,25 +92,3 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 ⚠️ **Test in a VM first** — Scripts make irreversible system changes.  
 ⚠️ **Review [test.bat](test.bat)** — Comment out lines if you need disabled features.  
 ⚠️ **Backup your system** — Create restore point before execution.  
-
-## Enterprise Deployment
-
-Use compiled `.ppkg` files from [finale/](finale/) for bulk deployments:
-
-```powershell
-Add-ProvisioningPackage -PackagePath "C:\path\to\finale_1.6.ppkg" -ForceInstall
-```
-
-## References
-
-- [privacy.sexy](https://privacy.sexy) — Source of [test.bat](test.bat) template.
-- [PSWindowsUpdate](https://www.powershellgallery.com/packages/PSWindowsUpdate) — Windows Update module.
-- [Microsoft OOBE Docs](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/oobe-overview).
-
-## License
-
-Internal/proprietary. Add LICENSE file if publishing.
-
----
-
-**Questions?** Review [documentazione/comandi utili.txt.txt](documentazione/comandi utili.txt.txt) for useful PowerShell snippets.
