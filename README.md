@@ -20,18 +20,6 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
 - Local admin user named **"DeltaAdmin"**.
 - **Windows 10/11**.
 
-## Quick Start
-
-Run as Administrator on oobe in order:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force
-.\1_rimuovi_pwd_utente.ps1  # Reset password, download scripts
-.\2_sara.ps1                 # Remove Office (optional)
-.\3_start.ps1                # Register scheduled tasks
-# Restart and log in — tasks run automatically
-```
-
 ## Workflow
 
 1. **[1_rimuovi_pwd_utente.ps1](1_rimuovi_pwd_utente.ps1)**
