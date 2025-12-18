@@ -37,9 +37,6 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
         Invoke-WebRequest 'https://totalcommander.ch/1156/newcert/tcmd1156x64.exe' -OutFile "$MA\totalcmd.exe"
         Start-Process -FilePath "$MA\totalcmd.exe" -ArgumentList '/S'
     }
-    elseif ($q -eq "n") {
-        continue
-    }
 
     # installazione programmi basilari tramite winget
     winget install 7zip.7zip
