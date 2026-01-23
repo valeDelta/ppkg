@@ -42,8 +42,8 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
     winget install 7zip.7zip
 
     # scarico ed eseguo bat per rimozione applicazioni di default (incerto se funziona o meno)
-    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/test.bat' -OutFile "$MA\rimozione.bat"
-    Start-Process -FilePath "$MA\rimozione.bat" -Verb RunAs
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/5_blotware%20removal.ps1' -OutFile "$MA\rimozione.ps1"
+    Start-Process -FilePath "$MA\rimozione.ps1" -Verb RunAs
 }
 
 
