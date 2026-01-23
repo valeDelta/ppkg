@@ -16,7 +16,7 @@ else {
     $Password = "GigaFiniti2022"
 
     # creazione del profilo wifi
-    $Profile = @"
+    $WProfile = @"
 <?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
   <name>$ProfileName</name>
@@ -45,7 +45,7 @@ else {
 "@
 
     # Export the profile to an XML file
-    $Profile | Out-File -FilePath "$env:USERPROFILE\$ProfileName.xml"
+    $WProfile | Out-File -FilePath "$env:USERPROFILE\$ProfileName.xml"
 
     # Add the profile to the Wi-Fi interface
     netsh wlan add profile filename="$env:USERPROFILE\$ProfileName.xml"
