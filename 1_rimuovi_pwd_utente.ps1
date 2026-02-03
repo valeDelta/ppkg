@@ -9,7 +9,7 @@ New-ItemProperty -Path "HKLM:\HKEY_L:\Control PaOCAL_MACHINE\SOFTWARE\Microsoft\
 
 #controllo connesione internet ed eventuale connessione a wifi predefinita
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
-    continue
+    
 }
 else {
     $ProfileName = "DELTAMOBILE"
@@ -26,7 +26,7 @@ else {
     </SSID>
   </SSIDConfig>
   <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
+  <connectionMode>auto</connectionMode>
   <MSM>
     <security>
       <authEncryption>
@@ -35,7 +35,7 @@ else {
         <useOneX>false</useOneX>
       </authEncryption>
       <sharedKey>
-        <keyType>passPhrase</keyType>
+        <keyType>passPhrase</keyType><
         <protected>false</protected>
         <keyMaterial>$Password</keyMaterial>
       </sharedKey>
