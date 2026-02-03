@@ -1,4 +1,4 @@
-# Windows Configuration Scripts (ppkg) — v2.8.3
+# Windows Configuration Scripts (ppkg) — v2.9.1
 
 Automated collection of PowerShell and batch scripts to prepare and configure Windows machines for deployment. The repository removes default apps, configures Italian locale settings, disables Xbox/Copilot/Meet Now, and applies Windows updates via scheduled tasks.
 
