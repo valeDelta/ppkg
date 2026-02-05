@@ -26,7 +26,7 @@ else {
     </SSID>
   </SSIDConfig>
   <connectionType>ESS</connectionType>
-  <connectionMode>auto</connectionMode>
+  <connectionMode>manual</connectionMode>
   <MSM>
     <security>
       <authEncryption>
