@@ -2,10 +2,11 @@
 Set-LocalUser -name DeltaAdmin -Password ([securestring]::new())
 
 #modifica chiavi di registro per le richieste delle impostazioni di privacy
-New-ItemProperty -Path "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "PrivacyConsentStatus" -Value 1 -PropertyType DWORD -Force 
-New-ItemProperty -Path "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipMachineOOBE" -Value 1 -PropertyType DWORD -Force 
-New-ItemProperty -Path "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "ProtectYourPC" -Value 3 -PropertyType DWORD -Force 
-New-ItemProperty -Path "HKLM:\HKEY_L:\Control PaOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipUserOOBE" -Value 1 -PropertyType DWORD -Force 
+# usare il percorso corretto sotto HKLM:\
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "PrivacyConsentStatus" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipMachineOOBE" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "ProtectYourPC" -Value 3 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipUserOOBE" -Value 1 -PropertyType DWORD -Force
 
 #controllo connesione internet ed eventuale connessione a wifi predefinita
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
@@ -26,7 +27,7 @@ else {
     </SSID>
   </SSIDConfig>
   <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
+  <connectionMode>auto</connectionMode>
   <MSM>
     <security>
       <authEncryption>
@@ -35,7 +36,7 @@ else {
         <useOneX>false</useOneX>
       </authEncryption>
       <sharedKey>
-        <keyType>passPhrase</keyType><
+        <keyType>passPhrase</keyType>
         <protected>false</protected>
         <keyMaterial>$Password</keyMaterial>
       </sharedKey>
@@ -45,7 +46,8 @@ else {
 "@
 
     # Export the profile to an XML file
-    $WProfile | Out-File -FilePath "$env:USERPROFILE\$ProfileName.xml"
+    # salvare in UTF8 per compatibilità con netsh
+    $WProfile | Out-File -FilePath "$env:USERPROFILE\$ProfileName.xml" -Encoding UTF8
 
     # Add the profile to the Wi-Fi interface
     netsh wlan add profile filename="$env:USERPROFILE\$ProfileName.xml"
