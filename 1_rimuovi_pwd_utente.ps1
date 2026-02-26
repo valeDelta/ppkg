@@ -1,5 +1,6 @@
 ﻿#rimozzione password all'utente
 Set-LocalUser -name DeltaAdmin -Password ([securestring]::new())
+Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $true # imposto la password dell'utente locale per non scadere mai
 
 #modifica chiavi di registro per le richieste delle impostazioni di privacy
 # usare il percorso corretto sotto HKLM:\
@@ -45,12 +46,16 @@ else {
 </WLANProfile>
 "@
 
+    #netsh wlan set profileorder name="$ProfileName" interface="Wi-Fi" priority=1
+
+    #netsh wlan set profileparameter name="$ProfileName" connectionmode=auto
+
     # Export the profile to an XML file
     # salvare in UTF8 per compatibilità con netsh
     $WProfile | Out-File -FilePath "$env:USERPROFILE\$ProfileName.xml" -Encoding UTF8
 
     # Add the profile to the Wi-Fi interface
-    netsh wlan add profile filename="$env:USERPROFILE\$ProfileName.xml"
+    netsh wlan add profile filename="$env:USERPROFILE\$ProfileName.xml" user=all
 
     # Connect to the Wi-Fi network
     netsh wlan connect name="$ProfileName"
@@ -62,7 +67,13 @@ Start-Sleep -Seconds 30
 mkdir "C:\management\" | Set-Location 
 Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/update.ps1' -OutFile 'C:\management\update.ps1' # scarico script di update
 Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/4_config.ps1' -OutFile 'C:\management\config.ps1' # scarico script di configurazione
-    
+Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "C:\Users\Public\Desktop\teleassistenza.exe" #scarico programma teleassistenza
+Invoke-WebRequest 'https://github.com/valeDelta/ppkg/raw/refs/heads/main/netscan.exe' -OutFile "C:\management\netscan.exe" # scarico netscan
+
+
+# disabilito fastboot
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0
+
 # rimozione lingua olandese se presente (possibile non necessario)
 $LangList = Get-WinUserLanguageList
 if ($LangList.languagetag -ccontains "nl-NL") {
