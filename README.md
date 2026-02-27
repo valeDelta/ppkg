@@ -64,18 +64,8 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
 ✅ **Windows Updates** — Automatic update installation via PSWindowsUpdate.  
 ✅ **PPKG Support** — Enterprise-ready provisioning packages in [finale/](finale/).  
 
-## Common Issues & Fixes
-
-| Issue | Solution |
-|-------|----------|
-| Scripts won't run | `Set-ExecutionPolicy Bypass -Scope Process -Force` |
-| DeltaAdmin not found | Create: `New-LocalUser -Name DeltaAdmin -Password ([securestring]::new())` |
-| Scheduled tasks don't trigger | Restart computer. Verify DeltaAdmin account exists. |
-| Office removal fails | Ensure no Office apps running. Re-run [2_sara.ps1](2_sara.ps1). |
-| Copilot still visible | Restart: `taskkill /f /im explorer.exe & start explorer` |
-
 ## Safety Notes
 
 ⚠️ **Test in a VM first** — Scripts make irreversible system changes.  
-⚠️ **Review [test.bat](test.bat)** — Comment out lines if you need disabled features.  
+⚠️ **Review [5_blotware removal.ps1](5_blotware removal.ps1)** — Comment out lines if you need disabled features.  
 ⚠️ **Backup your system** — Create restore point before execution.  
