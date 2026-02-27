@@ -12,13 +12,13 @@ net start w32time
 w32tm /resync
 
 # inserimento password all'account admin locale
-$pass = Read-Host "Inserire la password per l'utente DeltaAdmin"
+$pass = Read-Host "Inserire la password per l'utente Delta"
 if ($pass -eq "") { 
-    Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $TRUE
+    Set-LocalUser -Name "Delta" -PasswordNeverExpires $TRUE
 }
 else {
     $password = ConvertTo-SecureString $pass -AsPlainText -Force 
-    Set-LocalUser -Name "DeltaAdmin" -Password $password -FullName "DeltaAdmin" -AccountNeverExpires -PasswordNeverExpires $True
+    Set-LocalUser -Name "Delta" -Password $password -FullName "DeltaAdmin" -AccountNeverExpires -PasswordNeverExpires $True
 }
 
 # controllo connesione internet per scaricare programmi aggiuntivi

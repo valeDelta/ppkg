@@ -1,6 +1,6 @@
 ﻿#rimozzione password all'utente
-Set-LocalUser -name DeltaAdmin -Password ([securestring]::new())
-Set-LocalUser -Name "DeltaAdmin" -PasswordNeverExpires $true # imposto la password dell'utente locale per non scadere mai
+Set-LocalUser -name Delta -Password ([securestring]::new())
+Set-LocalUser -Name "Delta" -PasswordNeverExpires $true # imposto la password dell'utente locale per non scadere mai
 
 #modifica chiavi di registro per le richieste delle impostazioni di privacy
 # usare il percorso corretto sotto HKLM:\
