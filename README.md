@@ -13,7 +13,7 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
 
 ## Requirements
 
-- **Administrator privileges** for all scripts.
+- **Administrator privileges** for all scrip
 - **PowerShell 5.1+** with execution policy allowing scripts.
 - **Internet connectivity** for downloads.
 - **Windows 10/11**.
