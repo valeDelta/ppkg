@@ -1,6 +1,6 @@
-# Windows Configuration Scripts (ppkg) — v2.9.1
+# Windows Configuration Scripts (ppkg) — v2.10.1
 
-Automated collection of PowerShell and batch scripts to prepare and configure Windows machines for deployment. The repository removes default apps, configures Italian locale settings, disables Xbox/Copilot/Meet Now, and applies Windows updates via scheduled tasks.
+Automated collection of PowerShell and batch scripts to prepare and configure Windows machines for deployment.
 
 ## Contents
 
@@ -9,26 +9,24 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
 - [3_start.ps1](3_start.ps1) — Register scheduled tasks for first-logon configuration.
 - [4_config.ps1](4_config.ps1) — Main config: set Italian locale/timezone, install 7-Zip, download utilities, run app removal.
 - [update.ps1](update.ps1) — Install Windows updates via PSWindowsUpdate module.
-- [test.bat](test.bat) — Remove Xbox apps, disable Copilot/Meet Now, privacy tweaks.
-- [finale/](finale/) — Compiled `.ppkg` provisioning packages for enterprise deployment.
+- [5_blotware removal.ps1](5_blotware removal.ps1) — Remove Xbox apps, disable Copilot/Meet Now, privacy tweaks.
 
 ## Requirements
 
 - **Administrator privileges** for all scripts.
 - **PowerShell 5.1+** with execution policy allowing scripts.
 - **Internet connectivity** for downloads.
-- Local admin user named **"DeltaAdmin"**.
 - **Windows 10/11**.
 
 ## Workflow
 
 1. **[1_rimuovi_pwd_utente.ps1](1_rimuovi_pwd_utente.ps1)**
-   - Clears DeltaAdmin password.
+   - Resets DeltaAdmin password.
    - Sets OOBE flags to skip setup screens.
    - Downloads [4_config.ps1](4_config.ps1) and [update.ps1](update.ps1) to `C:\management\`.
 
 2. **[2_sara.ps1](2_sara.ps1)** (Optional)
-   - Downloads and runs SaRAcmd to remove Office.
+   - Downloads and runs SaRAcmd to remove Microsoft Office.
 
 3. **[3_start.ps1](3_start.ps1)**
    - Creates two scheduled tasks: "continue" and "update".
@@ -40,7 +38,8 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
      - Installs 7-Zip via winget.
      - Downloads teleassistenza and netscan utilities.
      - Optionally installs Total Commander.
-     - Runs [test.bat](test.bat) to remove Xbox/Copilot.
+     - Runs [5_blotware removal.ps1](5_blotware removal.ps1) to remove Xbox/Copilot/Meet Now.
+
    - **"update" task** runs [update.ps1](update.ps1):
      - Installs PSWindowsUpdate module.
      - Checks and installs all Windows updates.
@@ -54,7 +53,7 @@ Automated collection of PowerShell and batch scripts to prepare and configure Wi
 | [3_start.ps1](3_start.ps1) | Register scheduled tasks for automatic first-logon configuration. |
 | [4_config.ps1](4_config.ps1) | Finalize config: Italian locale, software installation, utility downloads. |
 | [update.ps1](update.ps1) | Install Windows updates automatically. |
-| [test.bat](test.bat) | Remove Xbox apps, disable Copilot/Meet Now, privacy hardening. |
+| [5_blotware removal.ps1](test.bat) | Remove Xbox apps, disable Copilot/Meet Now. |
 
 ## Key Features
 
