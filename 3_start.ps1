@@ -7,7 +7,7 @@
     
     #creo il trigger e impostazioni per l'attività
     $trigger = New-ScheduledTaskTrigger -AtLogOn
-    $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId DeltaAdmin
+    $task = New-ScheduledTaskPrincipal -RunLevel Highest -UserId Delta
 
     # registro le attività
     Register-ScheduledTask -Action $action -Trigger $trigger -Principal $task -TaskName "continue"

@@ -73,6 +73,7 @@ Invoke-WebRequest 'https://github.com/valeDelta/ppkg/raw/refs/heads/main/netscan
 
 # disabilito fastboot
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Value 0 -Type DWord
 
 # rimozione lingua olandese se presente (possibile non necessario)
 $LangList = Get-WinUserLanguageList
