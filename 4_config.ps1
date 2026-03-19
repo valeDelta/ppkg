@@ -37,7 +37,7 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
     winget update --all
 
     # scarico ed eseguo bat per rimozione applicazioni di default (incerto se funziona o meno)
-    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/5_blotware%20removal.ps1' -OutFile "$MA\rimozione.ps1"
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/5_blotware%20removal.ps1' -OutFile "C:\management\rimozione.ps1"
     Start-Process powershell.exe -ArgumentList "C:\management\rimozione.ps1"
 
 }
