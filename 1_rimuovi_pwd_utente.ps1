@@ -3,7 +3,6 @@ Set-LocalUser -name Delta -Password ([securestring]::new())
 Set-LocalUser -Name "Delta" -PasswordNeverExpires $true # imposto la password dell'utente locale per non scadere mai
 
 
-
 #modifica chiavi di registro per le richieste delle impostazioni di privacy
 # usare il percorso corretto sotto HKLM:\
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "PrivacyConsentStatus" -Value 1 -PropertyType DWORD -Force
@@ -11,10 +10,12 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -N
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "ProtectYourPC" -Value 3 -PropertyType DWORD -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipUserOOBE" -Value 1 -PropertyType DWORD -Force
 
+# creo cartella management per scaricare script e programmi necessari
+mkdir "C:\management\" | Set-Location 
+
 #controllo connesione internet ed eventuale connessione a wifi predefinita
-$connnectionstatus = 0
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
-  $connnectionstatus = 1
+ 
 }
 else {
   $ProfileName = "DELTAMOBILE"
@@ -62,24 +63,14 @@ else {
   netsh wlan connect name="$ProfileName" | Out-Null
 
   if ($LASTEXITCODE -eq 0) {
-    $connnectionstatus = 1
-    
     # attesa 30 secondi per stabilire la connessione
     Start-Sleep -Seconds 30 
+
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/update.ps1' -OutFile 'C:\management\update.ps1' # scarico script di update
+    Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/4_config.ps1' -OutFile 'C:\management\config.ps1' # scarico script di configurazione
+    Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "C:\Users\Public\Desktop\teleassistenza.exe" #scarico programma teleassistenza
+    Invoke-WebRequest 'https://github.com/valeDelta/ppkg/raw/refs/heads/main/netscan.exe' -OutFile "C:\management\netscan.exe" # scarico netscan
   }
-  else {
-    $connnectionstatus = 0
-  }
-
-}
-
-mkdir "C:\management\" | Set-Location 
-
-if ($connnectionstatus -eq 1) {
-  Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/update.ps1' -OutFile 'C:\management\update.ps1' # scarico script di update
-  Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/4_config.ps1' -OutFile 'C:\management\config.ps1' # scarico script di configurazione
-  Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "C:\Users\Public\Desktop\teleassistenza.exe" #scarico programma teleassistenza
-  Invoke-WebRequest 'https://github.com/valeDelta/ppkg/raw/refs/heads/main/netscan.exe' -OutFile "C:\management\netscan.exe" # scarico netscan
 }
 
 # disabilito fastboot
