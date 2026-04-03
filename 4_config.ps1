@@ -33,9 +33,12 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
     # }
 
     
-    # scarico ed eseguo bat per rimozione applicazioni di default (incerto se funziona o meno)
+    # scarico ed eseguo bat per rimozione applicazioni di default
     Invoke-WebRequest 'https://raw.githubusercontent.com/valeDelta/ppkg/refs/heads/main/5_blotware%20removal.ps1' -OutFile "C:\management\rimozione.ps1"
     Start-Process powershell.exe -ArgumentList "C:\management\rimozione.ps1"
+    
+    # attesa 30 secondi per completare la rimozione del bloatware
+    Start-Sleep -Seconds 30 
 
     # installazione programmi basilari tramite winget
     winget install 7zip.7zip
