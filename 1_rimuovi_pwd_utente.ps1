@@ -61,8 +61,9 @@ else {
 
   # Prova a connettersi (non blocca mai lo script)
   netsh wlan connect name="$ProfileName" | Out-Null
+}
 
-  if ($LASTEXITCODE -eq 0) {
+if ($LASTEXITCODE -eq 0) {
     # attesa 30 secondi per stabilire la connessione
     Start-Sleep -Seconds 30 
 
@@ -71,7 +72,6 @@ else {
     Invoke-WebRequest 'https://logins.livecare.net/liveletexecustomunified/GSTTQX6918RZR83K' -OutFile "C:\Users\Public\Desktop\teleassistenza.exe" #scarico programma teleassistenza
     Invoke-WebRequest 'https://github.com/valeDelta/ppkg/raw/refs/heads/main/netscan.exe' -OutFile "C:\management\netscan.exe" # scarico netscan
   }
-}
 
 # disabilito fastboot
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0
