@@ -15,7 +15,7 @@ mkdir "C:\management\" | Set-Location
 
 #controllo connesione internet ed eventuale connessione a wifi predefinita
 If ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-NetConnectionProfile).IPv6Connectivity -contains "Internet") {
- 
+ $LASTEXITCODE = 0
 }
 else {
   $ProfileName = "DELTAMOBILE"
