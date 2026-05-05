@@ -10,6 +10,17 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -N
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "ProtectYourPC" -Value 3 -PropertyType DWORD -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" -Name "SkipUserOOBE" -Value 1 -PropertyType DWORD -Force
 
+# prova di modifica regione pre desktop
+Set-TimeZone -id "W. Europe Standard Time"
+$region = "it-IT"
+Set-Culture $region
+Set-WinSystemLocale $region
+Set-WinUserLanguageList $region, "it-IT" -force -wa silentlycontinue
+Set-WinHomeLocation 118
+Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
+net start w32time
+w32tm /resync
+
 # creo cartella management per scaricare script e programmi necessari
 mkdir "C:\management\" | Set-Location 
 
@@ -61,6 +72,8 @@ else {
 
   # Prova a connettersi (non blocca mai lo script)
   netsh wlan connect name="$ProfileName" | Out-Null
+
+  $LASTEXITCODE = 0
 }
 
 if ($LASTEXITCODE -eq 0) {

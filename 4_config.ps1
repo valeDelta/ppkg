@@ -1,15 +1,15 @@
 Unregister-ScheduledTask -TaskName "continue" -Confirm:$False #elimino l'attività pianificata
 
 # impostazioni lingua, regione, fuso orario e sincronizzazione orologio
-Set-TimeZone -id "W. Europe Standard Time"
-$region = "it-IT"
-Set-Culture $region
-Set-WinSystemLocale $region
-Set-WinUserLanguageList $region, "it-IT" -force -wa silentlycontinue
-Set-WinHomeLocation 118
-Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
-net start w32time
-w32tm /resync
+# Set-TimeZone -id "W. Europe Standard Time"
+# $region = "it-IT"
+# Set-Culture $region
+# Set-WinSystemLocale $region
+# Set-WinUserLanguageList $region, "it-IT" -force -wa silentlycontinue
+# Set-WinHomeLocation 118
+# Copy-UserInternationalSettingsToSystem -WelcomeScreen $True -NewUser $True
+# net start w32time
+# w32tm /resync
 
 # inserimento password all'account admin locale
 $pass = Read-Host "Inserire la password per l'utente Delta"
