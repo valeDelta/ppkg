@@ -28,8 +28,8 @@ if ((Get-NetConnectionProfile).IPv4Connectivity -contains "Internet" -or (Get-Ne
     #richiesta installazione total commander
     # $q = Read-Host "si vuole installare total commander? (y/n)"
     # if ($q -eq "y") { 
-    #     Invoke-WebRequest 'https://totalcommander.ch/1156/newcert/tcmd1156x64.exe' -OutFile "$MA\totalcmd.exe"
-    #     Start-Process -FilePath "$MA\totalcmd.exe" -ArgumentList '/S'
+    #     Invoke-WebRequest 'https://totalcommander.ch/1156/newcert/tcmd1156x64.exe' -OutFile "C:\management\totalcmd.exe"
+    #     Start-Process -FilePath "C:\management\totalcmd.exe" -ArgumentList '/S'
     # }
 
     
